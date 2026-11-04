@@ -1,0 +1,9 @@
+{
+  "name": "aniworld",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "skystream-extractors": "^1.3.8"
+  }
+}

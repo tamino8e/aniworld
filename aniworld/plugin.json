@@ -1,0 +1,16 @@
+{
+  "packageName": "com.venice.aniworld",
+  "name": "AniWorld",
+  "version": 1,
+  "authors": ["Venice"],
+  "baseUrl": "https://aniworld.to",
+  "description": "AniWorld.to Scraper – German Dub priorisiert, VOE bevorzugt.",
+  "iconUrl": "https://aniworld.to/favicon.ico",
+  "languages": ["de"],
+  "categories": ["anime"],
+  "domains": [
+    { "name": "aniworld.to", "url": "https://aniworld.to" },
+    { "name": "aniworld.cc", "url": "https://aniworld.cc" },
+    { "name": "aniworld.sx", "url": "https://aniworld.sx" }
+  ]
+}

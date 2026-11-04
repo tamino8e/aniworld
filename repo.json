@@ -1,0 +1,9 @@
+{
+  "name": "aniworld",
+  "packageName": "com.venice.aniworld",
+  "description": "SkyStream plugins repository",
+  "manifestVersion": 1,
+  "pluginLists": [
+    "https://raw.githubusercontent.com/tamino8e/aniworld/main/dist/plugins.json"
+  ]
+}
