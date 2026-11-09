@@ -839,18 +839,26 @@
 
   var LANG_FALLBACK = { "1": "Ger Dub", "2": "Eng Sub", "3": "Ger Sub" };
 
+  // SkyStream exposes the language choice as one sub-provider per language
+  // (plugin.json -> providers) and injects it as manifest.providerId. Setting
+  // values are not readable by plugins in the current app build, so this is the
+  // mechanism that actually reaches the plugin.
+  var PROVIDER_LANGUAGES = {
+    "ger-dub": "1",
+    "eng-sub": "2",
+    "ger-sub": "3"
+  };
+
   /**
-   * Language chosen in the plugin's settings (plugin.json -> settings).
-   * Returns "" for "auto" or when no preference is stored, which keeps every
-   * language in the source list exactly as before.
+   * Language chosen in SkyStream's extension settings. Returns "" for the
+   * "auto" provider or an unknown one, which keeps every language in the
+   * source list exactly as before.
    */
-  async function preferredLanguageKey() {
+  function preferredLanguageKey() {
     try {
-      if (typeof getPreference !== "function") return "";
-      var stored = await getPreference("language");
-      var key = stored === null || stored === undefined ? "" : String(stored).trim();
-      if (!key || key.toLowerCase() === "auto") return "";
-      return key;
+      if (typeof manifest === "undefined" || !manifest) return "";
+      var id = String(manifest.providerId || "").trim().toLowerCase();
+      return PROVIDER_LANGUAGES[id] || "";
     } catch (e) {
       return "";
     }
@@ -933,7 +941,7 @@
 
       // A preferred language narrows the list. When this episode has no source
       // in it, every language is kept rather than handing back nothing.
-      var preferred = await preferredLanguageKey();
+      var preferred = preferredLanguageKey();
       if (preferred) {
         var inPreferred = links.filter(function (link) {
           return String(link.langKey) === preferred;

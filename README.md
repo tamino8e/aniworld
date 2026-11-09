@@ -87,20 +87,28 @@ challenge is skipped instead of producing an unplayable link.
 
 ## Language preference
 
-`plugin.json` declares a `language` setting, so the plugin's gear icon in the Extensions screen
-shows a **Preferred language** dropdown:
+SkyStream exposes the choice as sub-providers (`providers` in `plugin.json`), which the app injects
+into the plugin as `manifest.providerId`. The extension's gear icon therefore lists four entries,
+each with its own switch:
 
-| Value | Result |
+| Provider | Sources returned |
 | --- | --- |
-| Auto (all languages) | Every language stays in the source list — the default |
-| German Dub | Only `… · Ger Dub` sources are returned |
-| English Sub | Only `… · Eng Sub` sources are returned |
-| German Sub | Only `… · Ger Sub` sources are returned |
+| AniWorld (all languages) | Every language stays in the source list |
+| AniWorld (German Dub) | Only `… · Ger Dub` sources are returned |
+| AniWorld (English Sub) | Only `… · Eng Sub` sources are returned |
+| AniWorld (German Sub) | Only `… · Ger Sub` sources are returned |
 
-If the preferred language has no source for an episode — common for shows that are subbed but not
-dubbed — all languages are returned instead of an empty list, so the setting can never leave you with
-nothing to play. SkyStream stores the choice per plugin, and it applies to every episode until you
-change it.
+Disable the ones you do not want and the provider switcher lists only your choice. The website
+address selector keeps working alongside them, so domain fallback is unaffected.
+
+If the chosen language has no source for an episode — common for shows that are subbed but not
+dubbed — all languages are returned instead of an empty list, so it can never leave you with nothing
+to play.
+
+Why not a dropdown in the plugin's settings? Those settings are declared and stored by the app, but
+the bridge that hands their values to plugin JS answers `null` from the worker isolate in the current
+build, so a plugin cannot read them. Sub-provider IDs are injected straight into the plugin's scope,
+which is why this route works.
 
 ## Domain changes
 
