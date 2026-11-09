@@ -1,0 +1,16 @@
+{
+  "packageName": "dev.skystream.aniworld",
+  "name": "AniWorld",
+  "version": 2,
+  "baseUrl": "https://aniworld.to",
+  "description": "AniWorld.to — German dub and German/English sub anime with VOE, Vidmoly, Filemoon and Doodstream sources.",
+  "authors": ["Buffy"],
+  "languages": ["de", "en"],
+  "categories": ["Anime"],
+  "domains": [
+    { "name": "aniworld.to", "url": "https://aniworld.to" },
+    { "name": "aniworld.cc", "url": "https://aniworld.cc" },
+    { "name": "aniworld.cx", "url": "https://aniworld.cx" },
+    { "name": "aniworld.io", "url": "https://aniworld.io" }
+  ]
+}
