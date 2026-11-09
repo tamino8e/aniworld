@@ -2,8 +2,23 @@
   {
     "packageName": "dev.skystream.aniworld",
     "name": "AniWorld",
-    "version": 2,
+    "version": 3,
     "baseUrl": "https://aniworld.to",
+    "settings": [
+      {
+        "key": "language",
+        "title": "Preferred language",
+        "description": "Filter the source list to one language. Falls back to all languages when the episode has no source in it.",
+        "type": "select",
+        "defaultValue": "auto",
+        "options": [
+          { "label": "Auto (all languages)", "value": "auto" },
+          { "label": "German Dub", "value": "1" },
+          { "label": "English Sub", "value": "2" },
+          { "label": "German Sub", "value": "3" }
+        ]
+      }
+    ],
     "domains": [
       { "name": "aniworld.to", "url": "https://aniworld.to" },
       { "name": "aniworld.cc", "url": "https://aniworld.cc" },

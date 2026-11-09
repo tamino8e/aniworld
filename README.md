@@ -64,7 +64,7 @@ cd aniworld && zip -9 ../dist/dev.skystream.aniworld.sky plugin.json plugin.js
 | `getHome` | Hero row from *Beliebt bei AniWorld*, plus rows for **Neue Animes**, **Deutsch (Dub)**, **GerSub** and **EngSub** |
 | `search` | AniWorld's own search API (`POST /ajax/search`), de-duplicated to series and enriched with cover, year and synopsis; falls back to the A–Z catalogue |
 | `load` | Title, cover, year, FSK rating, IMDb id, genres and synopsis, plus every season and the film list as episodes |
-| `loadStreams` | Resolves the episode's hosters per language and returns playable stream URLs |
+| `loadStreams` | Resolves the episode's hosters per language, honours the language preference and returns playable stream URLs |
 
 Episodes carry their AniWorld title (e.g. *Grausamkeit*), season and episode numbers, and whether
 the episode is dubbed or subbed. Films are listed as season `0`, after the numbered seasons.
@@ -84,6 +84,23 @@ Streams are labelled with the hoster and language (`VOE · Ger Dub`, `Vidmoly ·
 carry the `Referer` their CDN expects. Up to four hosters per language are tried, within a time
 budget, so one slow hoster cannot block the rest. A hoster that only returns a Cloudflare
 challenge is skipped instead of producing an unplayable link.
+
+## Language preference
+
+`plugin.json` declares a `language` setting, so the plugin's gear icon in the Extensions screen
+shows a **Preferred language** dropdown:
+
+| Value | Result |
+| --- | --- |
+| Auto (all languages) | Every language stays in the source list — the default |
+| German Dub | Only `… · Ger Dub` sources are returned |
+| English Sub | Only `… · Eng Sub` sources are returned |
+| German Sub | Only `… · Ger Sub` sources are returned |
+
+If the preferred language has no source for an episode — common for shows that are subbed but not
+dubbed — all languages are returned instead of an empty list, so the setting can never leave you with
+nothing to play. SkyStream stores the choice per plugin, and it applies to every episode until you
+change it.
 
 ## Domain changes
 

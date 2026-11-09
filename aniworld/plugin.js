@@ -839,6 +839,23 @@
 
   var LANG_FALLBACK = { "1": "Ger Dub", "2": "Eng Sub", "3": "Ger Sub" };
 
+  /**
+   * Language chosen in the plugin's settings (plugin.json -> settings).
+   * Returns "" for "auto" or when no preference is stored, which keeps every
+   * language in the source list exactly as before.
+   */
+  async function preferredLanguageKey() {
+    try {
+      if (typeof getPreference !== "function") return "";
+      var stored = await getPreference("language");
+      var key = stored === null || stored === undefined ? "" : String(stored).trim();
+      if (!key || key.toLowerCase() === "auto") return "";
+      return key;
+    } catch (e) {
+      return "";
+    }
+  }
+
   function parseLanguages(html) {
     var map = {};
     var re = /data-lang-key="(\d+)"[^>]*title="([^"]+)"/g;
@@ -912,6 +929,24 @@
           errorCode: "NO_STREAMS",
           message: "AniWorld lists no hosters for this episode yet."
         });
+      }
+
+      // A preferred language narrows the list. When this episode has no source
+      // in it, every language is kept rather than handing back nothing.
+      var preferred = await preferredLanguageKey();
+      if (preferred) {
+        var inPreferred = links.filter(function (link) {
+          return String(link.langKey) === preferred;
+        });
+        if (inPreferred.length) {
+          links = inPreferred;
+        } else {
+          console.log(
+            "aniworld: no " +
+              (langMap[preferred] || "preferred") +
+              " source here, keeping all languages"
+          );
+        }
       }
 
       // Keep every language represented, preferring hosters that resolve reliably.
