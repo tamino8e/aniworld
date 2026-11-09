@@ -10,7 +10,7 @@ with episode lists, search and playable HLS/MP4 streams.
 2. Paste the raw URL of this repository's `repo.json`:
 
    ```
-   https://raw.githubusercontent.com/<user>/<repo>/main/repo.json
+   https://raw.githubusercontent.com/tamino8e/aniworld/main/repo.json
    ```
 
 3. Install **AniWorld** from the list, then pick it as your provider.
@@ -39,12 +39,13 @@ SkyStream installs a single `.sky` file, and `dist/` ships it prebuilt:
   the absolute URL of its `.sky`.
 
 `repo.json` points at `dist/plugins.json`, so the app only ever needs the `repo.json` URL. The
-absolute URLs in both files still contain the `USER/REPO` placeholder: replace it with your own
-GitHub path, or let the official CLI rebuild everything with your real URLs:
+absolute URLs in both files are pinned to `https://raw.githubusercontent.com/tamino8e/aniworld/main`.
+If you fork or rename the repository, either update them by hand or let the official CLI rebuild
+everything with your real URLs:
 
 ```bash
 npm install -g skystream-cli
-skystream deploy -u https://raw.githubusercontent.com/<user>/<repo>/main
+skystream deploy -u https://raw.githubusercontent.com/tamino8e/aniworld/main
 ```
 
 That command re-zips each plugin into `dist/<packageName>.sky`, rewrites `dist/plugins.json` and

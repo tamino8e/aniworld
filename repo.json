@@ -3,7 +3,7 @@
   "packageName": "dev.skystream.aniworld.repo",
   "manifestVersion": 1,
   "pluginLists": [
-    "https://raw.githubusercontent.com/USER/REPO/main/dist/plugins.json"
+    "https://raw.githubusercontent.com/tamino8e/aniworld/main/dist/plugins.json"
   ],
   "description": "SkyStream provider for AniWorld.to — German dubbed and subbed anime streams."
 }
